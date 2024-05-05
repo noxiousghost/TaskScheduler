@@ -11,31 +11,44 @@ import { usePathname, useRouter } from "next/navigation";
 import { arrowLeft, bars, logout } from "@/app/utils/Icons";
 // import { UserButton, useClerk, useUser } from "@clerk/nextjs";
 
-function sidebar() {
+function Sidebar() {
+  const { theme, collapsed, collapseMenu } = useGlobalState();
+  // const { signOut } = useClerk();
+
   // const { user } = useUser();
+
   // const { firstName, lastName, imageUrl } = user || {
   //   firstName: "",
   //   lastName: "",
   //   imageUrl: "",
   // };
-  const { theme } = useGlobalState();
+
   const router = useRouter();
   const pathname = usePathname();
 
   const handleClick = (link: string) => {
     router.push(link);
   };
+
   return (
-    <SidebarStyled theme={theme}>
+    <SidebarStyled theme={theme} collapsed={collapsed}>
+      <button className="toggle-nav" onClick={collapseMenu}>
+        {collapsed ? bars : arrowLeft}
+      </button>
       <div className="profile">
         <div className="profile-overlay"></div>
         <div className="image">
-          <Image width={70} height={70} src="/./avatar.png" alt="profile" />
+          <Image
+            width={70}
+            height={70}
+            src="/public/avatar.jpg"
+            alt="profile"
+          />
         </div>
         <div className="user-btn absolute z-20 top-0 w-full h-full">
           {/* <UserButton /> */}
         </div>
-        <h1 className="capitalize">sexy bitch</h1>
+        <h1 className="capitalize">Hello WOrld</h1>
       </div>
       <ul className="nav-items">
         {menu.map((item) => {
@@ -54,6 +67,20 @@ function sidebar() {
           );
         })}
       </ul>
+      {/* <div className="sign-out relative m-6">
+        <Button
+          name={"Sign Out"}
+          type={"submit"}
+          padding={"0.4rem 0.8rem"}
+          borderRad={"0.8rem"}
+          fw={"500"}
+          fs={"1.2rem"}
+          icon={logout}
+          click={() => {
+            signOut(() => router.push("/signin"));
+          }}
+        />
+      </div> */}
     </SidebarStyled>
   );
 }
@@ -269,4 +296,5 @@ const SidebarStyled = styled.nav<{ collapsed: boolean }>`
     margin: 1.5rem;
   }
 `;
-export default sidebar;
+
+export default Sidebar;
