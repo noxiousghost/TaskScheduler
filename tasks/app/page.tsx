@@ -1,5 +1,6 @@
 import Image from "next/image";
+import Tasks from "./components/tasks/tasks";
 
 export default function Home() {
-  return <main>Typescript is better than Javascript</main>;
+  return <Tasks />;
 }
