@@ -1,9 +1,14 @@
 "use client";
 import React from "react";
 import styled from "styled-components";
+import CreateContent from "../modals/CreateContent";
 
 function tasks() {
-  return <TaskStyled>tasks</TaskStyled>;
+  return (
+    <TaskStyled>
+      <CreateContent />
+    </TaskStyled>
+  );
 }
 
 const TaskStyled = styled.main`
