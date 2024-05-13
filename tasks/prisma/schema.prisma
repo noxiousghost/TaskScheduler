@@ -6,9 +6,10 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "mongodb"
   url      = env("DATABASE_URL")
 }
+
 
 model Task{
   id          String    @id @default(cuid()) @map("_id")
