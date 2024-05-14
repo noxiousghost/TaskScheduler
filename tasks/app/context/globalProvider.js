@@ -44,6 +44,8 @@ export const GlobalProvider = ({ children }) => {
     }
   };
 
+  const completedTasks = tasks.filter((task) => task.isCompleted === true);
+
   React.useEffect(() => {
     if (user) allTasks();
   }, [user]);
@@ -54,6 +56,7 @@ export const GlobalProvider = ({ children }) => {
         tasks,
         deleteTask,
         isLoading,
+        completedTasks,
       }}
     >
       <GlobalUpdateContext.Provider value={{}}>
