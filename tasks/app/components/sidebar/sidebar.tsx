@@ -8,10 +8,18 @@ import menu from "@/app/utils/menu";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { arrowLeft, bars, logout } from "@/app/utils/Icons";
+import Button from "../button/button";
+import { UserButton, useClerk, useUser } from "@clerk/nextjs";
 
 function Sidebar() {
   const { theme, collapsed, collapseMenu } = useGlobalState();
-
+  const { signOut } = useClerk();
+  const { user } = useUser();
+  const { firstName, lastName, imageUrl } = user || {
+    firstName: "",
+    lastName: "",
+    imageUrl: "",
+  };
   const router = useRouter();
   const pathname = usePathname();
 
@@ -34,7 +42,9 @@ function Sidebar() {
             alt="profile"
           />
         </div>
-        <div className="user-btn absolute z-20 top-0 w-full h-full"></div>
+        <div className="user-btn absolute z-20 top-0 w-full h-full">
+          <UserButton />
+        </div>
         <h1 className="capitalize">Hello WOrld</h1>
       </div>
       <ul className="nav-items">
@@ -54,6 +64,20 @@ function Sidebar() {
           );
         })}
       </ul>
+      <div className="sign-out relative m-6">
+        <Button
+          name={"Sign Out"}
+          type={"submit"}
+          padding={"0.4rem 0.8rem"}
+          borderRad={"0.8rem"}
+          fw={"500"}
+          fs={"1.2rem"}
+          icon={logout}
+          click={() => {
+            signOut(() => router.push("/signin"));
+          }}
+        />
+      </div>
     </SidebarStyled>
   );
 }
