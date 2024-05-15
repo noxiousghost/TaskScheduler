@@ -75,6 +75,7 @@ export const GlobalProvider = ({ children }) => {
     <GlobalContext.Provider
       value={{
         theme,
+        allTasks,
         tasks,
         deleteTask,
         isLoading,
