@@ -35,17 +35,14 @@ function Sidebar() {
       <div className="profile">
         <div className="profile-overlay"></div>
         <div className="image">
-          <Image
-            width={70}
-            height={70}
-            src="/public/avatar.jpg"
-            alt="profile"
-          />
+          <Image width={70} height={70} src={imageUrl} alt="profile" />
         </div>
         <div className="user-btn absolute z-20 top-0 w-full h-full">
           <UserButton />
         </div>
-        <h1 className="capitalize">Hello WOrld</h1>
+        <h1 className="capitalize">
+          {firstName} {lastName}
+        </h1>
       </div>
       <ul className="nav-items">
         {menu.map((item) => {
@@ -123,6 +120,20 @@ const SidebarStyled = styled.nav<{ collapsed: boolean }>`
     border-right: 2px solid ${(props) => props.theme.borderColor2};
     border-top: 2px solid ${(props) => props.theme.borderColor2};
     border-bottom: 2px solid ${(props) => props.theme.borderColor2};
+  }
+
+  .user-btn {
+    .cl-rootBox {
+      width: 100%;
+      height: 100%;
+
+      .cl-userButtonTrigger {
+        width: 100%;
+        height: 100%;
+        border-radius: 0px;
+        opacity: 0;
+      }
+    }
   }
 
   .profile {
