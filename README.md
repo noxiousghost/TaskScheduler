@@ -4,7 +4,7 @@ TaskScheduler is a simple fullstack web application built using Next.js, with us
 
 ## Installation
 
-1. Clone the repository: `git clone https://github.com/your-username/tasks.git`
+1. Clone the repository: `git clone https://github.com//noxiousghost/TaskScheduler.git`
 2. Navigate to the project directory: `cd tasks`
 3. Install dependencies: `npm install`
 
