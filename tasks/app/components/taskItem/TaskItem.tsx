@@ -49,7 +49,7 @@ function TaskItem({ title, description, date, isCompleted, id }: Props) {
             Incomplete
           </button>
         )}
-        <button className="edit">{edit}</button>
+        {/* <button className="edit">{edit}</button> */}
         <button
           className="delete"
           onClick={() => {
@@ -101,6 +101,9 @@ const TaskItemStyled = styled.div`
 
     .edit {
       margin-left: auto;
+    }
+    .delete:hover .fa-trash {
+      color: red;
     }
 
     .completed,
