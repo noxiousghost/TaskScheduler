@@ -18,6 +18,12 @@ const GlobalStyles = styled.div`
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 1.5rem;
+    height: 100%;
+    transition: all 0.3s ease-in-out;
+  }
+  @media screen and (max-width: 768px) {
+    padding: 1rem;
+    gap: 1rem;
   }
 `;
 
