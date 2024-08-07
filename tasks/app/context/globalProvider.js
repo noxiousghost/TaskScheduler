@@ -4,6 +4,7 @@ import themes from "./themes";
 import axios from "axios";
 import { useUser } from "@clerk/nextjs";
 import toast from "react-hot-toast";
+import EditContent from "../components/modals/EditContent";
 
 export const GlobalContext = createContext();
 export const GlobalUpdateContext = createContext();
@@ -16,11 +17,14 @@ export const GlobalProvider = ({ children }) => {
   const [tasks, setTasks] = useState([]);
   const [modal, setModal] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
+  const [modalContent, setModalContent] = useState(null);
 
-  const openModal = () => {
+  const openModal = (content) => {
+    setModalContent(content);
     setModal(true);
   };
   const closeModal = () => {
+    setModalContent(null);
     setModal(false);
   };
 
@@ -57,11 +61,22 @@ export const GlobalProvider = ({ children }) => {
     }
   };
 
+  const editTask = async (task) => {
+    try {
+      const res = await axios.put(`/api/tasks`, task);
+      toast.success("Task updated successfully");
+      allTasks();
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong");
+    }
+  };
+
   const updateTask = async (task) => {
     try {
       const res = await axios.patch(`/api/tasks`, task);
 
-      toast.success("Task updated");
+      toast.success("Task status updated");
 
       allTasks();
     } catch (error) {
@@ -89,7 +104,9 @@ export const GlobalProvider = ({ children }) => {
         importantTasks,
         incompleteTasks,
         updateTask,
+        editTask,
         modal,
+        modalContent,
         openModal,
         closeModal,
         collapsed,
