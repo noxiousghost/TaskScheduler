@@ -117,6 +117,9 @@ const TaskItemStyled = styled.div`
     .edit {
       margin-left: auto;
     }
+    .edit:hover .fa-file-pen {
+      color: green;
+    }
     .delete:hover .fa-trash {
       color: red;
     }
