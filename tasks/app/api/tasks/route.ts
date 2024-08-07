@@ -88,3 +88,48 @@ export async function PATCH(req: Request) {
     return NextResponse.json({ error: "error updating the task", status: 500 });
   }
 }
+
+export async function PUT(req: Request) {
+  try {
+    const { userId } = auth();
+    if (!userId) {
+      return NextResponse.json({ error: "Unauthorized", status: 401 });
+    }
+
+    const { id, title, description, date, isCompleted, isImportant } =
+      await req.json();
+
+    if (!id || !title || !description || !date) {
+      return NextResponse.json({
+        error: "Missing required fields",
+        status: 400,
+      });
+    }
+
+    if (title.length < 3) {
+      return NextResponse.json({
+        error: "Title must be at least 3 characters long",
+        status: 400,
+      });
+    }
+
+    const task = await prisma.task.update({
+      where: {
+        id,
+        userId,
+      },
+      data: {
+        title,
+        description,
+        date,
+        isCompleted,
+        isImportant,
+      },
+    });
+    console.log("Task updated: ", task);
+    return NextResponse.json(task);
+  } catch (error) {
+    console.log("Error updating task:", error);
+    return NextResponse.json({ error: "Error updating the task", status: 500 });
+  }
+}
