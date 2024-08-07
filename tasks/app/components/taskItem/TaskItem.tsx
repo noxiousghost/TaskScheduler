@@ -4,16 +4,29 @@ import { useGlobalState } from "@/app/context/globalProvider";
 import { edit, trash } from "@/app/utils/Icons";
 import styled from "styled-components";
 import formatDate from "@/app/utils/formatDate";
+import EditContent from "../modals/EditContent";
 
 interface Props {
   title: string;
   description: string;
   date: string;
   isCompleted: boolean;
+  isImportant: boolean;
   id: string;
 }
-function TaskItem({ title, description, date, isCompleted, id }: Props) {
-  const { theme, deleteTask, updateTask } = useGlobalState();
+function TaskItem({
+  title,
+  description,
+  date,
+  isCompleted,
+  id,
+  isImportant,
+}: Props) {
+  const { theme, deleteTask, updateTask, openModal } = useGlobalState();
+  const handleEdit = () => {
+    const task = { id, title, description, date, isCompleted, isImportant };
+    openModal(<EditContent task={task} />);
+  };
   return (
     <TaskItemStyled theme={theme}>
       <h1>{title}</h1>
@@ -49,7 +62,9 @@ function TaskItem({ title, description, date, isCompleted, id }: Props) {
             Incomplete
           </button>
         )}
-        {/* <button className="edit">{edit}</button> */}
+        <button className="edit" onClick={handleEdit}>
+          {edit}
+        </button>
         <button
           className="delete"
           onClick={() => {
@@ -101,6 +116,9 @@ const TaskItemStyled = styled.div`
 
     .edit {
       margin-left: auto;
+    }
+    .edit:hover .fa-file-pen {
+      color: green;
     }
     .delete:hover .fa-trash {
       color: red;

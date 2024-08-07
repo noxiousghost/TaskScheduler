@@ -7,13 +7,13 @@ interface Props {
   content: React.ReactNode;
 }
 
-function Modal({ content }: Props) {
-  const { closeModal, theme } = useGlobalState();
+function Modal() {
+  const { closeModal, theme, modalContent } = useGlobalState();
   return (
     <ModalStyled theme={theme}>
       {" "}
       <div className="modal-overlay" onClick={closeModal}></div>
-      <div className="modal-content">{content}</div>
+      <div className="modal-content">{modalContent}</div>
     </ModalStyled>
   );
 }
