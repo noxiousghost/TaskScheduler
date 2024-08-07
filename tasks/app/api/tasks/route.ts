@@ -64,7 +64,7 @@ export async function GET(req: Request) {
   }
 }
 
-export async function PUT(req: Request) {
+export async function PATCH(req: Request) {
   try {
     const { userId } = auth();
     const { isCompleted, id } = await req.json();
